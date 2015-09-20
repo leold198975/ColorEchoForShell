@@ -1,14 +1,23 @@
 #!/usr/bin/env bash
 
+shopt -s expand_aliases
+
 dist=dist/ColorEcho
 table="color table.txt"
 
-# use colorEcho
-. "$dist".bash
+if [ ! -r "$dist".bash ]; then
+    alias echo.Green='echo'
+    alias echo.BoldYellow='echo'
+else
+    # use ColorEcho
+    . "$dist".bash
+fi
+
+echo.Green ColorEcho generator start!
 
 for shell in sh bash fish ksh
 do
-    echo.BoldYellow Generating colorEcho for $shell shell ...
+    echo.BoldYellow Generating ColorEcho for $shell shell ...
     #shell specify configs and tricks
     case $shell in
     "bash")
@@ -113,5 +122,7 @@ LOLCAT
 done
 
 #zsh can use bash's script
-echo.BoldYellow Generating colorEcho for zsh shell ...
+echo.BoldYellow Generating ColorEcho for zsh shell ...
 cp $dist.bash $dist.zsh
+
+echo.Green ColorEcho generator end!
