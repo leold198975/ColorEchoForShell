@@ -1,26 +1,36 @@
 #!/usr/bin/env bash
 
+set -e
 shopt -s expand_aliases
 
-dist=dist/ColorEcho
+distFolder=dist
+distPrefix=ColorEcho
 table="color table.txt"
 
-if [ ! -r "$dist".bash ]; then
+if [ ! -r "$distFolder/$distPrefix".bash ] || [ ! -s "$distFolder/$distPrefix".bash ]; then
+    echo "$distFolder$distPrefix".bash is not readable, fallback to use origin echo
+    alias echo.Red='echo'
     alias echo.Green='echo'
     alias echo.BoldYellow='echo'
 else
     # use ColorEcho
-    . "$dist".bash
+    . "$distFolder/$distPrefix".bash
+fi
+
+mkdir -p $distFolder
+if [ ! -w "$distFolder" ]; then
+    echo.Red Dist folder - $distFolder is not writable, exit ...
+    exit 1;
 fi
 
 echo.Green ColorEcho generator start!
 
-for shell in sh bash fish ksh
+for shell in sh bash fish ksh zsh
 do
     echo.BoldYellow Generating ColorEcho for $shell shell ...
     #shell specify configs and tricks
     case $shell in
-    "bash")
+    "bash" | "zsh")
         fn='function '
         dot='.'
         echo='echo'
@@ -61,7 +71,13 @@ do
         para='@'
     esac
 
-    newDist="$dist.$shell"
+    newDist="$distFolder/$distPrefix.$shell"
+    touch $newDist
+    if [ ! -w "$newDist" ]; then
+        echo.Red dist file - "$newDist" is not writable, exit ...
+        exit 1
+    fi
+
     echo "#!/usr/bin/env $shell" > $newDist
     for color in `cat "$table" | awk '{print $1}'`
     do
@@ -120,9 +136,5 @@ $endSym
 LOLCAT
 
 done
-
-#zsh can use bash's script
-echo.BoldYellow Generating ColorEcho for zsh shell ...
-cp $dist.bash $dist.zsh
 
 echo.Green ColorEcho generator end!
