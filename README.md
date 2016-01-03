@@ -1,9 +1,22 @@
 # ColorEchoForShell
 Make echo colorful with easier method. In [bash](https://www.gnu.org/software/bash/), [sh](https://en.wikipedia.org/wiki/Bourne_shell), [fish](http://fishshell.com/), [ksh](http://www.kornshell.com/) and [zsh](http://www.zsh.org/).
 
+## MENU
+* [`MENU`](#menu)
+* [`Installation`](#installation)
+* [`Usage`](#usage)
+* [`Examples`](#examples)
+* [`Supported shells`](#supported-shells)
+* [`Supported styles`](#supported-styles)
+* [`Supported colors`](#supported-colors)
+* [`Notes`](#notes)
+* [`Screenshot`](#screenshot)
+* [`Demo`](#demo)
+* [`Author`](#author)
+
 ## Installation
 
-* Download the script, choice the once for your shell by its extension in the filename.
+* Download the script, choice the one for your shell by its extension in the filename.
 - For example [dist/ColorEcho.bash](https://cdn.rawgit.com/PeterDaveHello/ColorEchoForShell/v0.0.4/dist/ColorEcho.bash) for bash.
 * Add a line to include the script in your shell rc or run it directly:
 `. ./ColorEcho.bash`
